@@ -25,7 +25,7 @@ const switchSettings = [
     { status: 1, key: 'metrics', switch: 'disable-metrics' },
     { status: 1, key: 'metricsrepo', switch: 'disable-metrics-repo' },
     { status: 1, key: 'javaharmony', switch: 'enable-javascript-harmony' },
-    { status: 1, key: 'noreferres', switch: 'no-referrers' },
+    { status: 1, key: 'noreferrers', switch: 'no-referrers' },
     { status: 1, key: 'twodcanvas', switch: 'disable-2d-canvas-clip-aa' },
     { status: 1, key: 'bundledppapi', switch: 'disable-bundled-ppapi-flash' },
     { status: 1, key: 'logging', switch: 'disable-logging' },
@@ -77,10 +77,8 @@ function createMainWindow() {
         if (setting.status === 1) {
             if (setting.hasOwnProperty('value')) {
                 app.commandLine.appendSwitch(setting.switch, setting.value);
-                console.log('has value')
             } else {
                 app.commandLine.appendSwitch(setting.switch);
-                console.log('has no value')
             }
         }
     }
