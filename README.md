@@ -1,6 +1,8 @@
 # qkc
 quick kirka client
 
+quick kirka client is so far an AMD GPU optimized kirka.io client. Still under development.
+
 `npm install`
 `npm start build` to create the distribution executable
 `npm start` to test launch
