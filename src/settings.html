@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Settings</title>
+</head>
+<body>
+  <h1 id="test">Settings Page</h1>
+  <div id="settingz2"></div>
+  <script>
+    const { ipcRenderer } = require('electron');
+
+    ipcRenderer.send('get-settings');
+
+    ipcRenderer.on('settings-data', (event, settings) => {
+      document.getElementById('test').textContent = JSON.stringify(settings);
+    });
+  </script>
+</body>
+</html>
