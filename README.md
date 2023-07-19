@@ -19,7 +19,8 @@ Known bugs:
 
 ToDo:
 
--Add Kirka ressource swapper to replace all skins to force a custom skin model.
+-Add Kirka ressource swapper to replace all skins to force a custom skin model. (either inject a chrome extension or use the swapper javascript directly? https://www.electronjs.org/docs/latest/api/session#sesloadextensionpath-options
+Old docs: https://stackoverflow.com/a/53346604/39992)
 
 -Auto enable frame rate limit when outside a game and disable frame rate limit when inside a game.
 
