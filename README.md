@@ -11,12 +11,14 @@ quick kirka client is so far an AMD GPU optimized kirka.io client. Still under d
 
 
 Known bugs:
+
 -Frame rate limit problems on Nvidia drivers only.
 
 -Sometimes >mode selection menu is laggy (frame rate limit problem)
 
 
 ToDo:
+
 -Add Kirka ressource swapper to replace all skins to force a custom skin model.
 
 -Auto enable frame rate limit when outside a game and disable frame rate limit when inside a game.
