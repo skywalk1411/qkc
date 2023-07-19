@@ -16,7 +16,7 @@ Known bugs:
 
 -Sometimes >mode selection menu is laggy (frame rate limit problem)
 
--F8 key is broken right now unless you enable disable frame rate.
+-F8 key is broken right now unless you enable disable frame rate limit.
 
 -F12 key do not open dev tools.
 
