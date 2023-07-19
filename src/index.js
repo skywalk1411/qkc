@@ -28,7 +28,33 @@ const settings = {
     bundledppapi: 1,
     logging: 1,
     websecurity: 1,
-};
+};/*
+const switchSettings = [
+    { key: 'gpublacklist', switch: 'ignore-gpu-blacklist' },
+    { key: 'gpuvsync', switch: 'disable-gpu-vsync' },
+    { key: 'gpuframeratelimit', switch: 'disable-frame-rate-limit' },
+    { key: 'gpurasterization', switch: 'enable-gpu-rasterization' },
+    { key: 'zerocopy', switch: 'enable-zero-copy' },
+    { key: 'softrasterizer', switch: 'disable-software-rasterizer' },
+    { key: 'gpudriverworkaround', switch: 'disable-gpu-driver-workarounds' },
+    { key: 'gpuprocessscrashlimit', switch: 'disable-gpu-process-crash-limit' },
+    { key: 'gpusandbox', switch: 'disable-gpu-sandbox' },
+    { key: 'gpuwatchdog', switch: 'disable-gpu-watchdog' },
+    { key: 'ooprasterization', switch: 'enable-oop-rasterization' },
+    { key: 'highdpi', switch: 'high-dpi-support', value: 1 },
+    { key: 'enablequic', switch: 'enable-quic' },
+    { key: 'fileaccess', switch: 'allow-file-access-from-files' },
+    { key: 'breakpad', switch: 'disable-breakpad' },
+    { key: 'printpreview', switch: 'disable-print-preview' },
+    { key: 'metrics', switch: 'disable-metrics' },
+    { key: 'metricsrepo', switch: 'disable-metrics-repo' },
+    { key: 'javaharmony', switch: 'enable-javascript-harmony' },
+    { key: 'noreferres', switch: 'no-referrers' },
+    { key: 'twodcanvas', switch: 'disable-2d-canvas-clip-aa' },
+    { key: 'bundledppapi', switch: 'disable-bundled-ppapi-flash' },
+    { key: 'logging', switch: 'disable-logging' },
+    { key: 'websecurity', switch: 'disable-web-security' }
+];*/
 let mainWindow;
 let settingsWindow;
 let isAppWindowActive = false;
@@ -135,6 +161,15 @@ function createMainWindow() {
     if (settings.websecurity === 1) {
         app.commandLine.appendSwitch('disable-web-security');
     }
+    /*for (const setting of switchSettings) {
+        if (settings[setting.key] === 1) {
+            if (setting.hasOwnProperty('value')) {
+                app.commandLine.appendSwitch(setting.switch, setting.value);
+            } else {
+                app.commandLine.appendSwitch(setting.switch);
+            }
+        }
+    }*/
     mainWindow.loadURL('https://kirka.io');
     mainWindow.maximize();
     mainWindow.webContents.on('did-finish-load', () => {
@@ -199,10 +234,10 @@ app.whenReady().then(() => {
     });
     ipcMain.on('get-settings', (event) => {
         event.sender.send('settings-data', settings);
-      });
+    });
     ipcMain.on('request-settings', (event) => {
         event.reply('settings-data', settings);
-      });
+    });
     app.on('activate', () => {
         if (BrowserWindow.getAllWindows().length === 0) {
             createMainWindow();
