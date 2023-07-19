@@ -3,7 +3,7 @@ const path = require('path');
 const fs = require('fs');
 const settings = {
     css: 0,
-    cssUrl: 'https://kirka.lukeskywalk.com/static/xsollo.css'
+    cssUrl: ''
 };
 const switchSettings = [
     { status: 1, key: 'gpublacklist', switch: 'ignore-gpu-blacklist' },
