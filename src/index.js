@@ -2,7 +2,8 @@ const { app, BrowserWindow, globalShortcut, screen, Menu, ipcMain, webContents }
 const path = require('path');
 const fs = require('fs');
 const settings = {
-    css: 0
+    css: 0,
+    cssUrl: 'https://kirka.lukeskywalk.com/static/xsollo.css'
 };
 const switchSettings = [
     { status: 1, key: 'gpublacklist', switch: 'ignore-gpu-blacklist' },
@@ -33,6 +34,14 @@ const switchSettings = [
 let mainWindow;
 let settingsWindow;
 let isAppWindowActive = false;
+function isValidUrl(url) {
+    try {
+        new URL(url);
+        return true;
+    } catch (error) {
+        return false;
+    }
+};
 function createMainWindow() {
     const displays = screen.getAllDisplays();
     const primaryDisplay = screen.getPrimaryDisplay();
@@ -79,22 +88,21 @@ function createMainWindow() {
     mainWindow.maximize();
     mainWindow.webContents.on('did-finish-load', () => {
         mainWindow.setTitle('qkc');
-        if (settings.css === 1) {
-            const cssPath = path.join(__dirname, 'test.css');
-            fs.readFile(cssPath, 'utf-8', (err, data) => {
-                if (err) {
-                    console.error('Error reading CSS file:', err);
-                    return;
-                }
-                const css = data.replace(/</g, '&lt;').replace(/>/g, '&gt;');
-                mainWindow.webContents.executeJavaScript(`
-                    (function() {
-                        var style = document.createElement('style');
-                        style.innerHTML = \`${css}\`;
-                        document.head.appendChild(style);
-                    })();
-                    `);
-            });
+        if (settings.css === 1 && isValidUrl(settings.cssUrl) && settings.cssUrl !== '') {
+            fetch(settings.cssUrl)
+                .then(response => response.text())
+                .then(css => {
+                    mainWindow.webContents.executeJavaScript(`
+                  (function() {
+                    var style = document.createElement('style');
+                    style.innerHTML = \`${css.replace(/</g, '&lt;').replace(/>/g, '&gt;')}\`;
+                    document.head.appendChild(style);
+                  })();
+                `);
+                })
+                .catch(error => {
+                    console.error('Error fetching CSS file:', error);
+                });
         }
     });
     Menu.setApplicationMenu(null);
